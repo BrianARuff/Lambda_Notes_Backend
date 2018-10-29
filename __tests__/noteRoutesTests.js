@@ -56,4 +56,13 @@ describe("Notes API", () => {
       expect(resp.status).toBe(401);
     });
   });
+
+  describe("at PUT /api/notes", () => {
+    it("should have a response of 200 when an update is passed", async () => {
+      const notes = await request(server).get("/api/notes");
+      const notesList = notes.body.notes;
+      const resp = await request(server).put(`/api/notes/${notesList[notesList.length - 1].id}`).send({tags: JSON.stringify([1, 2, 3]), title: "Updated Title", textBody: "Update Text Body"});
+      expect(resp.status).toBe(200);
+    })
+  })
 });
