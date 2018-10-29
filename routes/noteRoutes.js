@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
   const note = { tags, title, textBody, __v };
   db.insert(note)
     .into("notes")
-    .then(count => res.status(200).json({ message: "Posted Note", count }))
+    .then(count => res.status(201).json({ message: "Posted Note", count }))
     .catch(err =>
       res.status(500).json({ message: "Internal Server Error", err })
     );
@@ -64,7 +64,7 @@ router.put("/:id", (req, res) => {
         res.status(401).json({ message: "Note not updated", count });
       } else {
         res.status(200).json({ message: "Note updated", count });
-      }  
+      }
     })
     .catch(err =>
       res.status(500).json({ message: "Internal Server Error", err })

@@ -9,9 +9,6 @@
     "start": "nodemon index.js",
     "test": "jest --watch --verbose --detectOpenHandles"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "devDependencies": {
     "jest": "^23.6.0",
     "nodemon": "^1.18.5",

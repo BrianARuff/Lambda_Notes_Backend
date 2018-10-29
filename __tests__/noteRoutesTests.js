@@ -21,7 +21,39 @@ describe("Notes API", () => {
     });
     it(`should have a first note with a textBody that includes with 'The Good, the Bad and the Ugly'`, async () => {
       const resp = await request(server).get("/api/notes");
-      expect(resp.body.notes[0].textBody.includes("The Good, the Bad and the Ugly")).toBe(true);
+      expect(
+        resp.body.notes[0].textBody.includes("The Good, the Bad and the Ugly")
+      ).toBe(true);
+    });
+  });
+
+  describe("at POST /api/notes", () => {
+    it("should have a response of 500 when no args are sent with post request", async () => {
+      const resp = await request(server).post("/api/notes");
+      expect(resp.status).toBe(500);
+    });
+    it("should return response status of 201 when post is succesful", async () => {
+      const resp = await request(server)
+        .post("/api/notes")
+        .send({
+          tags: JSON.stringify(["one", "two", "three"]),
+          title: Math.random() * 10000,
+          textBody: Math.random() * 10000
+        });
+      expect(resp.status).toBe(201);
+    });
+  });
+
+  describe("at DELETE /api/notes", () => {
+    it("should have resposne of 200 when delete is successful", async () => {
+      const notes = await request(server).get("/api/notes");
+      const notesList = notes.body.notes;
+      const resp = await request(server).del(`/api/notes/${notesList[notesList.length - 1].id}`);
+      expect(resp.status).toBe(200);
+    });
+    it("should return 404 when id is not found", async () => {
+      const resp = await request(server).del("/api/notes/:id");
+      expect(resp.status).toBe(401);
     });
   });
 });
