@@ -6,8 +6,11 @@
   "author": "BrianARuff <thelonewolf198927@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --watch --verbose",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "jest --watch --verbose --detectOpenHandles"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "devDependencies": {
     "jest": "^23.6.0",

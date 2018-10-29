@@ -64,7 +64,7 @@ router.put("/:id", (req, res) => {
         res.status(401).json({ message: "Note not updated", count });
       } else {
         res.status(200).json({ message: "Note updated", count });
-      }
+      }  
     })
     .catch(err =>
       res.status(500).json({ message: "Internal Server Error", err })

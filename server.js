@@ -13,4 +13,5 @@ middleware(server);
 const noteRoutes = require('./routes/noteRoutes');
 server.use('/api/notes', noteRoutes);
 
+// export server
 module.exports = server;
