@@ -9,7 +9,8 @@ const middleware = require('./middleware');
 // init middlware on server
 middleware(server);
 
-// pull in database
-const db = require('./database');
+// pull in routes
+const noteRoutes = require('./routes/noteRoutes');
+server.use('/api/notes', noteRoutes);
 
 module.exports = server;
