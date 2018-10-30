@@ -4,8 +4,11 @@ const router = require("express").Router();
 // pull in database
 const db = require("../database");
 
+// pull in authentication middlware
+const { authenticate } = require("../authentication/session");
+
 // setup route handlers
-router.get("/", (req, res) => {
+router.get("/", authenticate, (req, res) => {
   db.select("*")
     .from("notes")
     .then(notes => {
