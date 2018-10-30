@@ -64,12 +64,13 @@ router.post("/login", (req, res) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         // generate token
         const token = generateToken(user);
+        console.log(token);
         // set session to token in cookies
         req.session.cookie.token = token;
         // return user logged in successful along with token and user details for FEDs.
         return res.status(200).json({
           message: "User logged in",
-          token,
+          token: token,
           user: { username: user.username, email }
         });
       }
