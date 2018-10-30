@@ -30,7 +30,6 @@ router.post("/register", (req, res) => {
   db("users")
     .insert(user)
     .then(count => {
-
       // gen token
       const token = generateToken(user);
 
@@ -50,6 +49,31 @@ router.post("/register", (req, res) => {
         .status(500)
         .json({ message: "Internal Server Error", error: { ...err } })
     );
+});
+
+router.post("/login", (req, res) => {
+  // get user data from req body
+  const { email, password } = req.body;
+
+  //access users database
+  db("users")
+    .where({ email }) // compare where email matches
+    .first()
+    .then(user => {
+      // if user exists and user password is the same as hash then login user
+      if (user && bcrypt.compareSync(password, user.password)) {
+        // generate token
+        const token = generateToken(user);
+        // set session to token in cookies
+        req.session.cookie.token = token;
+        // return user logged in successful along with token and user details for FEDs.
+        return res.status(200).json({
+          message: "User logged in",
+          token,
+          user: { username: user.username, email }
+        });
+      }
+    });
 });
 
 router.get("/mailingList", (req, res) => {
