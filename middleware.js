@@ -5,6 +5,7 @@ const cors = require("cors");
 
 // pull in express session
 const session = require("express-session");
+
 // pull in session config
 const { sessionConfig } = require("./authentication/session");
 
