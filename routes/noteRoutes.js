@@ -5,7 +5,7 @@ const router = require("express").Router();
 const db = require("../database");
 
 // pull in authentication middlware
-const { authenticate } = require("../authentication/session");
+const {authenticate} = require("../authentication/session");
 
 // setup route handlers
 router.get("/", authenticate, (req, res) => {

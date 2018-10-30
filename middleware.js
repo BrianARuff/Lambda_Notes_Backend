@@ -2,7 +2,10 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
+
+// pull in express session
 const session = require("express-session");
+// pull in session config
 const { sessionConfig } = require("./authentication/session");
 
 module.exports = server => {
