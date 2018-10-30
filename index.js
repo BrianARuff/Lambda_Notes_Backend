@@ -1,7 +1,7 @@
 // get server routes & middlware
 const server = require("./server");
 
-// set/get port number for port to listen on
+// set port number for port to listen on
 const port = 9000;
 
 // init listener
