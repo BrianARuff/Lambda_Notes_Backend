@@ -6,9 +6,15 @@ exports.up = function(knex, Promise) {
     t.string("textBody", 1500)
       .notNullable()
       .unique();
-    t.boolean("__v").defaultTo(false);
-    t.integer('user_id').unsigned();
-    t.foreign('user_id').refences('id').inTable('users');
+    t.boolean("__v")
+      .notNullable()
+      .defaultTo(0);
+    t.datetime("created_at").defaultTo(knex.fn.now());
+    t.datetime("updated_at").defaultTo(knex.fn.now());
+    t.integer("user_id").unsigned();
+    t.foreign("user_id")
+      .references("id")
+      .inTable("users");
   });
 };
 
