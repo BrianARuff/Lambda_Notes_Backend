@@ -7,6 +7,8 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .unique();
     t.boolean("__v").defaultTo(false);
+    t.integer('user_id').unsigned();
+    t.foreign('user_id').refences('id').inTable('users');
   });
 };
 
