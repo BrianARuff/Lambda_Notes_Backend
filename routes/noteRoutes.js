@@ -5,7 +5,7 @@ const router = require("express").Router();
 const db = require("../database");
 
 // pull in authentication middlware
-const {authenticate} = require("../authentication/session");
+const { authenticate } = require("../authentication/session");
 
 // setup route handlers
 router.get("/", authenticate, (req, res) => {
@@ -26,8 +26,8 @@ router.get("/", authenticate, (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { tags, title, textBody, __v } = req.body;
-  const note = { tags, title, textBody, __v };
+  const { tags, title, textBody, __v, user_id } = req.body;
+  const note = { tags, title, textBody, __v, user_id };
   db.insert(note)
     .into("notes")
     .then(count => res.status(201).json({ message: "Posted Note", count }))
@@ -56,8 +56,8 @@ router.delete("/:id", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { tags, title, textBody } = req.body;
-  const note = { tags, title, textBody };
+  const { tags, title, textBody, __v, user_id } = req.body;
+  const note = { tags, title, textBody, __v, user_id };
   db("notes")
     .where({ id })
     .first()

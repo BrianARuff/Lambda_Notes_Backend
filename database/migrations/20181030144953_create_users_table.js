@@ -3,7 +3,6 @@ exports.up = function(knex, Promise) {
     t.increments();
     t.string("username", 128)
       .notNullable()
-      .unique();
     t.string("password").notNullable();
     t.string("email")
       .notNullable()
