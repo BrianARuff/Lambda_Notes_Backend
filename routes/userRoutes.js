@@ -54,6 +54,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   // get user data from req body
   const { email, password } = req.body;
+  console.log(req.body);
 
   //access users database
   db("users")
@@ -73,6 +74,12 @@ router.post("/login", (req, res) => {
           user: { username: user.username, email }
         });
       }
+    })
+    .catch(err => {
+      console.log(err);
+      res
+        .status(500)
+        .json({ message: "Internal Server Error", error: { ...err } });
     });
 });
 
