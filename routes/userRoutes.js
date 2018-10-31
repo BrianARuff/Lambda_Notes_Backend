@@ -18,7 +18,7 @@ router.post("/register", (req, res) => {
   if (!password) errArr.push("Missing Password");
 
   // return 404 user error with error messages for easy to display error messages for front-end development
-  if (errArr.length > 0) res.status(404).json({ message: errArr });
+  if (errArr.length > 0) return res.status(404).json({ message: errArr });
 
   // encrypt password
   password = bcrypt.hashSync(password, 16);
@@ -64,7 +64,6 @@ router.post("/login", (req, res) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         // generate token
         const token = generateToken(user);
-        console.log(token);
         // set session to token in cookies
         req.session.cookie.token = token;
         // return user logged in successful along with token and user details for FEDs.
