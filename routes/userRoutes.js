@@ -54,13 +54,16 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   // get user data from req body
   const { email, password } = req.body;
-  console.log(req.body);
+  console.log(`Email: ${email}, Password: ${password}`);
 
   //access users database
   db("users")
     .where({ email }) // compare where email matches
     .first()
     .then(user => {
+      if(!user) {
+        res.status(404).json({message: "Login not successful"});
+      }
       // if user exists and user password is the same as hash then login user
       if (user && bcrypt.compareSync(password, user.password)) {
         // generate token
