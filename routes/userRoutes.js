@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 // init router
 const router = require("express").Router();
 
@@ -74,8 +74,8 @@ router.post("/login", (req, res) => {
     .where({ email }) // compare where email matches
     .first()
     .then(user => {
-      if(!user) {
-        res.status(404).json({message: "Login not successful"});
+      if (!user) {
+        res.status(404).json({ message: "Login not successful" });
       }
       // if user exists and user password is the same as hash then login user
       if (user && bcrypt.compareSync(password, user.password)) {
@@ -100,7 +100,8 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/mailingList", (req, res) => {
-  db.raw("SELECT email, username FROM users")
+  db.select("username", "email")
+    .from("users")
     .then(users => res.status(200).json(users))
     .catch(err => res.status(err));
 });
