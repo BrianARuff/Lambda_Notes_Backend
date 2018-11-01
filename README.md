@@ -7,7 +7,8 @@ FE URL: https://brian-lambda-notes-fe.herokuapp.com/
 FE Github: https://github.com/BrianARuff/lambda-notes-frontend
 
 
-Notes API
+
+Guide - Lambda Notes API - How to
 
 --GET All Notes--
   - https://brian-lambda-notes.herokuapp.com/api/users/notes
