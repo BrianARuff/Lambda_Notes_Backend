@@ -100,7 +100,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/mailingList", (req, res) => {
-  db.select("username", "email")
+  db.select("username", "email", "id")
     .from("users")
     .then(users => res.status(200).json(users))
     .catch(err => res.status(err));
