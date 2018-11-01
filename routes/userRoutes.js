@@ -53,7 +53,7 @@ router.post("/register", (req, res) => {
       return res.status(200).json({
         message: "User registered",
         count: count[0],
-        user: { username, email },
+        user: { username, email, id: user.id },
         token: token
       });
     })
@@ -87,7 +87,7 @@ router.post("/login", (req, res) => {
         return res.status(200).json({
           message: "User logged in",
           token: token,
-          user: { username: user.username, email }
+          user: { username: user.username, email, id: user.id }
         });
       }
     })
@@ -104,6 +104,22 @@ router.get("/mailingList", (req, res) => {
     .from("users")
     .then(users => res.status(200).json(users))
     .catch(err => res.status(err));
+});
+
+router.get("/:id/notes", (req, res) => {
+  const { id } = req.params;
+  db.select("*")
+    .from("users")
+    .join("notes")
+    .on("users.id", "=", "notes.user_id")
+    .where({ user_id: id })
+    .then(userWithNotes => res.status(200).json({ userWithNotes }))
+    .catch(error => res.status(error));
+  // db.raw(
+  //   `SELECT * from users JOIN notes ON users.id = notes.id where notes.user_id = ${id}`
+  // )
+  //   .then(userWithNotes => res.status(200).json({ userWithNotes }))
+  //   .catch(error => res.status(error));
 });
 
 module.exports = router;
