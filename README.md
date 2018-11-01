@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Get Notes
-  1. Ensure you are registered and logged in.
-=======
 Backend URL: https://brian-lambda-notes.herokuapp.com/
 
 Backend Github: https://github.com/BrianARuff/Lambda_Notes_Backend
@@ -36,4 +32,3 @@ Guide - Lambda Notes API - How to
   - http://localhost:3333/api/users/login
   - email and password required
   - return a JWT and user object
->>>>>>> df234c5a049e48f8294aea2f8ca3d0f1f4fa08bd

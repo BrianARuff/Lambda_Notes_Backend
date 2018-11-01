@@ -115,11 +115,6 @@ router.get("/:id/notes", (req, res) => {
     .where({ user_id: id })
     .then(userWithNotes => res.status(200).json({ userWithNotes }))
     .catch(error => res.status(error));
-  // db.raw(
-  //   `SELECT * from users JOIN notes ON users.id = notes.id where notes.user_id = ${id}`
-  // )
-  //   .then(userWithNotes => res.status(200).json({ userWithNotes }))
-  //   .catch(error => res.status(error));
 });
 
 module.exports = router;
