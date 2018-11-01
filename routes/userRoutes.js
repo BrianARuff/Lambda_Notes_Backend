@@ -108,13 +108,13 @@ router.get("/mailingList", (req, res) => {
 
 router.get("/:id/notes", (req, res) => {
   const { id } = req.params;
-  db.select("*")
-    .from("users")
-    .join("notes")
-    .on("users.id", "=", "notes.user_id")
-    .where({ user_id: id })
-    .then(userWithNotes => res.status(200).json({ userWithNotes }))
-    .catch(error => res.status(error));
+  db.raw(
+    `SELECT * FROM users JOIN notes ON users.id = notes.user_id WHERE notes.user_id = ${id}`
+  )
+    .then(notes => res.status(200).json(notes.rows))
+    .catch(err =>
+      res.status(500).json({ message: "Error Getting Notes for User", err })
+    );
 });
 
 module.exports = router;

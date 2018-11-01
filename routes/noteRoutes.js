@@ -25,9 +25,6 @@ function authenticate(req, res, next) {
   }
 }
 
-// pull in authentication middlware
-// const { authenticate } = require("../authentication/session");
-
 // setup route handlers
 router.get("/", authenticate, (req, res) => {
   db.select("*")
@@ -51,7 +48,7 @@ router.post("/", (req, res) => {
   const note = { tags, title, textBody, __v, user_id };
   db.insert(note)
     .into("notes")
-    .then(count => res.status(201).json({ message: "Posted Note", count }))
+    .then(count => res.status(201).json({ message: "Posted Note", count, note }))
     .catch(err =>
       res.status(500).json({ message: "Internal Server Error", err })
     );
