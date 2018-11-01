@@ -2,7 +2,7 @@ require("dotenv").config(); // env variables
 
 const localPg = {
   host: "localhost",
-  database: process.env.DN_NAME,
+  database: "lambdaNotes",
   user: process.env.DB_USER,
   password: process.env.DB_PASS
 };
@@ -25,6 +25,7 @@ module.exports = {
     },
     useNullAsDefault: true
   },
+
   production: {
     client: "pg",
     connection: dbConnection,
@@ -33,7 +34,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: "knex_migrations",
+      tableName: "lambdaNotes",
       directory: "./database/migrations"
     },
     seeds: {
