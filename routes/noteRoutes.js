@@ -1,14 +1,35 @@
+require('dotenv').config();
 // init router
 const router = require("express").Router();
 
 // pull in database
 const db = require("../database");
 
+const jwt = require("jsonwebtoken");
+
+function authenticate(req, res, next) {
+  const token = req.get("Authorization");
+  if (token) {
+    jwt.verify(token, process.env.JWT_KEY, (err, decodedToken) => {
+      if (err) {
+        return res.status(404).json({
+          error: { ...err },
+          message: "Invalid Token"
+        });
+      }
+      req.decoded = decodedToken;
+      next();
+    });
+  } else {
+    return res.status(404).json({ error: "No token provided" });
+  }
+}
+
 // pull in authentication middlware
 // const { authenticate } = require("../authentication/session");
 
 // setup route handlers
-router.get("/", (req, res) => {
+router.get("/", authenticate, (req, res) => {
   db.select("*")
     .from("notes")
     .then(notes => {

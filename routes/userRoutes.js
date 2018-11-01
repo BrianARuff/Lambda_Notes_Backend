@@ -1,3 +1,4 @@
+require('dotenv').config();
 // init router
 const router = require("express").Router();
 
@@ -5,7 +6,19 @@ const router = require("express").Router();
 const db = require("../database");
 
 const bcrypt = require("bcryptjs");
-const { generateToken } = require("../authentication/session");
+
+const jwt = require("jsonwebtoken");
+
+function generateToken(user) {
+  const payload = {
+    ...user
+  };
+  const secret = process.env.JWT_KEY;
+  const options = {
+    expiresIn: "1h"
+  };
+  return jwt.sign(payload, secret, options);
+}
 
 router.post("/register", (req, res) => {
   // pull out user register info from req body
