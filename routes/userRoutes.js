@@ -17,8 +17,8 @@ function generateToken(user) {
   const options = {
     expiresIn: "1h"
   };
-  if(!user || !secret) {
-    return {message: "Generate token error"};
+  if (!user || !secret) {
+    return res.status(500).json({ message: "Gen Err Token" });
   }
   return jwt.sign(payload, secret, options);
 }
