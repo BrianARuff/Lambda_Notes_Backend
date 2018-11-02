@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
 
-function generateToken(user, res) {
+function generateToken(user) {
   const payload = {
     ...user
   };
@@ -17,9 +17,6 @@ function generateToken(user, res) {
   const options = {
     expiresIn: "1h"
   };
-  if (!user || !secret) {
-    return res.status(500).json({ message: "Gen Err Token" });
-  }
   return jwt.sign(payload, secret, options);
 }
 
@@ -47,7 +44,7 @@ router.post("/register", (req, res) => {
     .insert(user)
     .then(count => {
       // gen token
-      const token = generateToken(user, res);
+      const token = generateToken(user);
 
       // set cookie to token
       req.session.cookie.token = token;
