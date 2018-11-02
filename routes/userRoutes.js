@@ -9,7 +9,7 @@ const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
 
-function generateToken(user) {
+function generateToken(user, res) {
   const payload = {
     ...user
   };
@@ -47,7 +47,7 @@ router.post("/register", (req, res) => {
     .insert(user)
     .then(count => {
       // gen token
-      const token = generateToken(user);
+      const token = generateToken(user, res);
 
       // set cookie to token
       req.session.cookie.token = token;
