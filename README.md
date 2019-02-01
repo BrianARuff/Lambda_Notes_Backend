@@ -1,3 +1,5 @@
+Seperate repos for each part of site so expect some load time when accessing the backend in addition to the initial frontend wakeup on Heroku.
+
 Backend URL: https://brian-lambda-notes.herokuapp.com/
 
 Backend Github: https://github.com/BrianARuff/Lambda_Notes_Backend
